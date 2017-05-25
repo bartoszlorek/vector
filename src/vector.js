@@ -9,10 +9,6 @@ Vector.prototype = {
         return new Vector(this.x, this.y);
     },
 
-    equals: function (vector) {
-        return this.x === vector.x && this.y === vector.y;
-    },
-
     set: function (value) {
         vectorArg(value, (x, y) => {
             this.x = x;
@@ -53,7 +49,7 @@ Vector.prototype = {
         return this;
     },
 
-    reverse: function () {
+    inverse: function () {
         this.x *= -1;
         this.y *= -1;
         return this;
@@ -75,6 +71,10 @@ Vector.prototype = {
         const x = this.x - vector.x;
         const y = this.y - vector.y;
         return Math.sqrt((x * x) + (y * y));
+    },
+
+    equals: function (vector) {
+        return this.x === vector.x && this.y === vector.y;
     },
 
     magnitude: function (value) {
