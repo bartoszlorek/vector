@@ -59,32 +59,32 @@ const prototypes = {
         return this;
     },
 
-    add: function (value) {
-        vectorArg(value, (x, y) => {
+    add: function () {
+        vectorArg(arguments, (x, y) => {
             this.x += x;
             this.y += y;
         });
         return this;
     },
 
-    subtract: function (value) {
-        vectorArg(value, (x, y) => {
+    subtract: function () {
+        vectorArg(arguments, (x, y) => {
             this.x -= x;
             this.y -= y;
         });
         return this;
     },
 
-    multiply: function (value) {
-        vectorArg(value, (x, y) => {
+    multiply: function () {
+        vectorArg(arguments, (x, y) => {
             this.x *= x;
             this.y *= y;
         });
         return this;
     },
 
-    divide: function (value) {
-        vectorArg(value, (x, y) => {
+    divide: function () {
+        vectorArg(arguments, (x, y) => {
             if (x !== 0) this.x /= x;
             if (y !== 0) this.y /= y;
         });
@@ -151,8 +151,13 @@ const prototypes = {
     }
 }
 
-Vector.random = function (a = 1, b = 1) {
-    return new Vector(a * Math.random(), b * Math.random());
+Vector.random = function (a, b) {
+    a = a || 1;
+    b = b || a;
+    return new Vector(
+        a * Math.random(),
+        b * Math.random()
+    );
 }
 
 Vector.prototype = addImmutable(prototypes, [
@@ -168,21 +173,17 @@ Vector.prototype = addImmutable(prototypes, [
     'rotate',
 ]);
 
-function vectorArg(value, callback) {
-    if (typeof value === 'number') {
-        callback(value, value);
+function vectorArg(args, callback) {
+    const a = args[0];
+    const b = args[1];
+    if (typeof a === 'number') {
+        callback(a, b !== undefined ? b : a);
 
-    } else if (value instanceof Vector) {
-        callback(value.x, value.y);
+    } else if (a instanceof Vector) {
+        callback(a.x, a.y);
 
-    } else if (isArguments(value)) {
-        const x = value[0];
-        if (x !== undefined) {
-            const y = value[1] !== undefined
-                ? value[1]
-                : value[0];
-            callback(x, y);
-        }
+    } else if (isArray(a)) {
+        callback(a[0], a[1]);
     }
 }
 
@@ -201,8 +202,8 @@ function addImmutable(proto, methods) {
     return proto;
 }
 
-function isArguments(value) {
-    return value && value.hasOwnProperty('callee') || false;
+function isArray(value) {
+    return Object.prototype.toString.call(value) === '[object Array]';
 }
 
 module.exports = Vector;
