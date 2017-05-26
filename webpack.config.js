@@ -5,7 +5,9 @@ module.exports = {
     entry: './src/vector.js',
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'vector.min.js'
+        filename: 'vector.min.js',
+        library: 'Vector',
+        libraryTarget: 'umd'
     },
     module: {
         loaders: [
@@ -15,5 +17,8 @@ module.exports = {
                 loaders: ['babel-loader']
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.optimize.OccurrenceOrderPlugin()
+    ]
 }
