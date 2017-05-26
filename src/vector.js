@@ -1,10 +1,12 @@
-export default function Vector(x, y, immutable) {
-    this.immutable = immutable || false;
+function Vector(x, y) {
+    if (!(this instanceof Vector)) {
+        return new Vector(x, y);
+    }
     this.x = x || 0;
     this.y = y || 0;
 }
 
-Vector.prototype = {
+const prototypes = {
     /**
      *  Utility
      */
@@ -153,6 +155,19 @@ Vector.random = function (a = 1, b = 1) {
     return new Vector(a * Math.random(), b * Math.random());
 }
 
+Vector.prototype = addImmutable(prototypes, [
+    'set',
+    'add',
+    'subtract',
+    'multiply',
+    'divide',
+    'negate',
+    'normalize',
+    'limit',
+    'magnitude',
+    'rotate',
+]);
+
 function vectorArg(value, callback) {
     if (typeof value === 'number') {
         callback(value, value);
@@ -171,10 +186,23 @@ function vectorArg(value, callback) {
     }
 }
 
-function isZero(vector) {
-    return vector.x === 0 && vector.y === 0;
+function immutable(method) {
+    return function () {
+        const next = this.clone();
+        return next[method].apply(next, arguments);
+    }
+}
+
+function addImmutable(proto, methods) {
+    for (let i = 0; i < methods.length; i++) {
+        let name = methods[i];
+        proto['i' + name] = immutable(name);
+    }
+    return proto;
 }
 
 function isArguments(value) {
     return value && value.hasOwnProperty('callee') || false;
 }
+
+module.exports = Vector;
