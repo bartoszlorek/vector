@@ -1,5 +1,5 @@
 import Vector from '../src/vector';
-import { components } from './utils';
+import { components } from './__utils';
 
 describe('immutable', () => {
     it('mutable add', () => {

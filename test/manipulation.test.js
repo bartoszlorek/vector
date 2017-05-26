@@ -1,14 +1,27 @@
 import Vector from '../src/vector';
-import { components, round } from './utils';
+import { components, round } from './__utils';
 
 describe('.set()', () => {
     it('be unchanged', () => {
         const vector = new Vector(1, 2).set();
         components(vector, 1, 2);
     })
-    it('change to 2,4', () => {
+    it('by single number', () => {
+        const vector = new Vector().set(2);
+        components(vector, 2, 2);
+    })
+    it('by double number', () => {
         const vector = new Vector().set(2, 4);
         components(vector, 2, 4);
+    })
+    it('by vector', () => {
+        const source = new Vector(1, 2);
+        const vector = new Vector().set(source);
+        components(vector, 1, 2);
+    })
+    it('by array', () => {
+        const vector = new Vector().set([1, 2]);
+        components(vector, 1, 2);
     })
 })
 
