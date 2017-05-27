@@ -26,7 +26,7 @@ Possible `value`:
 - instance of Vector
 - Array [x, y]
 
-Return a mutated instance of `Vector`
+Returns a mutated instance of `Vector`
 
 ```javascript
 set(value)
@@ -45,7 +45,7 @@ rotateDeg(angle)      // CCW rotation in degrees
 ```
 
 ## Products
-Return a `number`
+Returns a `number`
 ```javascript
 dot(vector)
 cross(vector)
