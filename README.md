@@ -13,9 +13,10 @@ Getters and Setters
 ```javascript
 x
 y
-length   // magnitude
-angle    // angle in degrees
-radians  // angle in radians
+length      // magnitude
+lengthSqr   // squared length - if only comparison is needed, this is faster
+angle       // angle in radians
+degrees     // angle in degrees
 ```
 
 ## Manipulation
@@ -37,10 +38,10 @@ divide(value)
 
 ```javascript
 negate()
-normalize([number])   // norm to 1, otherwise to number
-limit([number])       // norm to number if the length is greater than number
-magnitude(number)     // chainable alias of length setter
-rotate(angle)         // CCW rotation in degrees
+normalize([number])   // modifies the length to 1, otherwise to number
+limit([number])       // modifies the length to number if it's greater than number
+rotate(angle)         // CCW rotation in radians
+rotateDeg(angle)      // CCW rotation in degrees
 ```
 
 ## Products
@@ -49,8 +50,9 @@ Return a `number`
 dot(vector)
 cross(vector)
 distance(vector)
-angleTo(vector)       // angle to vector in degrees
-radiansTo(vector)     // angle to vector in radians
+distanceSqr(vector)   // squared distance - if only comparison is needed, this is faster
+angleTo(vector)       // angle to vector in radians
+degreesTo(vector)     // angle to vector in degrees
 ```
 
 ## Immutable
@@ -65,8 +67,8 @@ idivide(value)
 inegate()
 inormalize([number])
 ilimit([number])
-imagnitude(number)
 irotate(angle)
+irotateDeg(angle)
 ```
 
 ## Static
