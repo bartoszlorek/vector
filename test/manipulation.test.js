@@ -110,16 +110,16 @@ describe('.limit()', () => {
     })
 })
 
-describe('.magnitude()', () => {
-    it('length to 2', () => {
-        const vector = new Vector(2, 4).magnitude(2);
-        expect(round(vector.length)).toBe(2);
+describe('.rotate()', () => {
+    it('turns by PI/2', () => {
+        const vector = new Vector(2, 0).rotate(Math.PI/2);
+        components(vector, 0, 2);
     })
 })
 
-describe('.rotate()', () => {
-    it('turns 90 degrees', () => {
-        const vector = new Vector(2, 0).rotate(90);
+describe('.rotateDeg()', () => {
+    it('turns by 90 degrees', () => {
+        const vector = new Vector(2, 0).rotateDeg(90);
         components(vector, 0, 2);
     })
 })

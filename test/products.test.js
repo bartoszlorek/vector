@@ -17,6 +17,14 @@ describe('.cross()', () => {
     })
 })
 
+describe('.distanceSqr()', () => {
+    it('between two vectors', () => {
+        const first = new Vector(0, 0);
+        const second = new Vector(2, 2);
+        expect(first.distanceSqr(second)).toBe(8);
+    })
+})
+
 describe('.distance()', () => {
     it('between two vectors', () => {
         const first = new Vector(0, 0);
@@ -26,17 +34,17 @@ describe('.distance()', () => {
 })
 
 describe('.angleTo()', () => {
-    it('degrees to vector', () => {
-        const first = new Vector(0, 2);
-        const second = new Vector(4, 4);
-        expect(round(first.angleTo(second))).toBe(45);
-    })
-})
-
-describe('.radiansTo()', () => {
     it('radians to vector', () => {
         const first = new Vector(0, 2);
         const second = new Vector(4, 0);
-        expect(round(first.radiansTo(second))).toBe(1.5708);
+        expect(round(first.angleTo(second))).toBe(1.5708);
+    })
+})
+
+describe('.degreesTo()', () => {
+    it('degrees to vector', () => {
+        const first = new Vector(0, 2);
+        const second = new Vector(4, 4);
+        expect(round(first.degreesTo(second))).toBe(45);
     })
 })
