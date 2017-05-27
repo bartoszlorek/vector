@@ -21,31 +21,35 @@ const prototypes = {
     /**
      *  Properties
      */
+    get lengthSqr() {
+        return this.dot(this);
+    },
+
     get length() {
-        return Math.sqrt(this.dot(this));
+        return Math.sqrt(this.lengthSqr);
     },
 
     set length(value) {
-        this.normalize().multiply(value);
+        this.normalize(value);
     },
 
     get angle() {
-        return this.radians * 180 / Math.PI;
-    },
-
-    set angle(value) {
-        this.radians(value * Math.PI / 180);
-    },
-
-    get radians() {
         return Math.atan2(this.y, this.x);
     },
 
-    set radians(value) {
+    set angle(value) {
         this.set(
             Math.cos(value) * this.length,
             Math.sin(value) * this.length
         );
+    },
+
+    get degrees() {
+        return this.angle * 180 / Math.PI;
+    },
+
+    set degrees(value) {
+        this.angle = value * Math.PI / 180;
     },
 
     /**
@@ -98,7 +102,9 @@ const prototypes = {
     },
 
     normalize: function (value = 1) {
-        this.multiply(value / this.length);
+        if (this.length > 0) {
+            this.multiply(value / this.length);
+        }
         return this;
     },
 
@@ -109,19 +115,18 @@ const prototypes = {
         return this;
     },
 
-    magnitude: function (value) {
-        this.length = value;
+    rotate: function (angle) {
+        if (angle) {
+            angle += this.angle;
+            const length = this.length;
+            this.x = Math.cos(angle) * length;
+            this.y = Math.sin(angle) * length;
+        }
         return this;
     },
 
-    rotate: function (angle) {
-        if (angle) {
-            const rad = (this.angle + angle) * Math.PI / 180;
-            const length = this.length;
-            this.x = Math.cos(rad) * length;
-            this.y = Math.sin(rad) * length;
-        }
-        return this;
+    rotateDeg: function (angle) {
+        return this.rotate(angle * Math.PI / 180);
     },
 
     /**
@@ -135,19 +140,23 @@ const prototypes = {
         return this.x * vector.y - this.y * vector.x
     },
 
-    distance: function (vector) {
+    distanceSqr: function (vector) {
         const x = this.x - vector.x;
         const y = this.y - vector.y;
-        return Math.sqrt((x * x) + (y * y));
+        return x * x + y * y;
+    },
+
+    distance: function (vector) {
+        return Math.sqrt(this.distanceSqr(vector));
     },
 
     angleTo: function (vector) {
-        return this.radiansTo(vector) * 180 / Math.PI;
+        const length = this.length * vector.length;
+        return length > 0 ? Math.acos(this.dot(vector) / length) : NaN;
     },
 
-    radiansTo: function (vector) {
-        const length = this.length * vector.length;
-        return length === 0 ? NaN : Math.acos(this.dot(vector) / length);
+    degreesTo: function (vector) {
+        return this.angleTo(vector) * 180 / Math.PI;
     }
 }
 
@@ -169,8 +178,8 @@ Vector.prototype = addImmutable(prototypes, [
     'negate',
     'normalize',
     'limit',
-    'magnitude',
     'rotate',
+    'rotateDeg'
 ]);
 
 function vectorArg(args, callback) {
