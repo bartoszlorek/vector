@@ -174,14 +174,14 @@ Vector.random = function (a, b) {
     );
 };
 
-Vector.catch = function (x = 0, y = 0) {
+Vector.receive = function (x = 0, y = 0) {
     if (pool.length > 0) {
         return pool.pop().set(x, y);
     }
     return new Vector(x, y);
 };
 
-Vector.free = function (vector) {
+Vector.release = function (vector) {
     pool.push(vector);
 };
 

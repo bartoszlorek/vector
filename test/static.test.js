@@ -19,21 +19,21 @@ describe('.random()', () => {
     })
 })
 
-describe('.catch()', () => {
+describe('.receive()', () => {
     it('return new vector', () => {
-        const vector = Vector.catch();
+        const vector = Vector.receive();
         expect(vector).toBeInstanceOf(Vector);
     })
-    it('catch and set', () => {
-        const vector = Vector.catch(2, 4);
+    it('receive and set', () => {
+        const vector = Vector.receive(2, 4);
         components(vector, 2, 4);
     })
 })
 
-describe('.free()', () => {
-    const first = Vector.catch(2, 4);
-    Vector.free(first);
-    const second = Vector.catch();
+describe('.release()', () => {
+    const first = Vector.receive(2, 4);
+    Vector.release(first);
+    const second = Vector.receive();
 
     it('release vector', () => {
         expect(first).toBe(second);
