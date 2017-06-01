@@ -14,7 +14,7 @@ Getters and Setters
 x
 y
 length      // magnitude
-lengthSqr   // squared length - if only comparison is needed, this is faster
+lengthSq    // squared length - if only comparison is needed, this is faster
 angle       // angle in radians
 degrees     // angle in degrees
 ```
@@ -50,7 +50,7 @@ Returns a `number`
 dot(vector)
 cross(vector)
 distance(vector)
-distanceSqr(vector)   // squared distance - if only comparison is needed, this is faster
+distanceSq(vector)    // squared distance - if only comparison is needed, this is faster
 angleTo(vector)       // angle to vector in radians
 degreesTo(vector)     // angle to vector in degrees
 ```
@@ -74,4 +74,6 @@ irotateDeg(angle)
 ## Static
 ```javascript
 Vector.random(x, y)   // create vector with random position in the given axes
+Vector.receive(x, y)  // get vector with given position from the pool, default [0, 0]
+Vector.release()      // push vector back to the pool
 ```
