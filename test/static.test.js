@@ -24,10 +24,14 @@ describe('.catch()', () => {
         const vector = Vector.catch();
         expect(vector).toBeInstanceOf(Vector);
     })
+    it('catch and set', () => {
+        const vector = Vector.catch(2, 4);
+        components(vector, 2, 4);
+    })
 })
 
 describe('.free()', () => {
-    const first = Vector.catch().set(2, 4);
+    const first = Vector.catch(2, 4);
     Vector.free(first);
     const second = Vector.catch();
 

@@ -174,12 +174,15 @@ Vector.random = function (a, b) {
     );
 };
 
-Vector.catch = function () {
-    return pool.length > 0 ? pool.pop() : new Vector();
+Vector.catch = function (x = 0, y = 0) {
+    if (pool.length > 0) {
+        return pool.pop().set(x, y);
+    }
+    return new Vector(x, y);
 };
 
 Vector.free = function (vector) {
-    pool.push(vector.set(0, 0));
+    pool.push(vector);
 };
 
 Vector.prototype = addImmutable(prototypes, [
