@@ -1,10 +1,10 @@
 import Vector from '../src/vector';
 import { round } from './__utils';
 
-describe('.lengthSqr', () => {
+describe('.lengthSq', () => {
     it('get squared length', () => {
         const vector = new Vector(2, 2);
-        expect(vector.lengthSqr).toBe(8);
+        expect(vector.lengthSq).toBe(8);
     })
 })
 

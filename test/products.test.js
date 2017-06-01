@@ -17,11 +17,11 @@ describe('.cross()', () => {
     })
 })
 
-describe('.distanceSqr()', () => {
+describe('.distanceSq()', () => {
     it('between two vectors', () => {
         const first = new Vector(0, 0);
         const second = new Vector(2, 2);
-        expect(first.distanceSqr(second)).toBe(8);
+        expect(first.distanceSq(second)).toBe(8);
     })
 })
 

@@ -15,18 +15,18 @@ const prototypes = {
     },
 
     equals: function (vector) {
-        return this.x === vector.x && this.y === vector.y;
+        return this === vector || this.x === vector.x && this.y === vector.y;
     },
 
     /**
      *  Properties
      */
-    get lengthSqr() {
+    get lengthSq() {
         return this.dot(this);
     },
 
     get length() {
-        return Math.sqrt(this.lengthSqr);
+        return Math.sqrt(this.lengthSq);
     },
 
     set length(value) {
@@ -140,14 +140,14 @@ const prototypes = {
         return this.x * vector.y - this.y * vector.x
     },
 
-    distanceSqr: function (vector) {
+    distanceSq: function (vector) {
         const x = this.x - vector.x;
         const y = this.y - vector.y;
         return x * x + y * y;
     },
 
     distance: function (vector) {
-        return Math.sqrt(this.distanceSqr(vector));
+        return Math.sqrt(this.distanceSq(vector));
     },
 
     angleTo: function (vector) {
@@ -158,8 +158,13 @@ const prototypes = {
     degreesTo: function (vector) {
         return this.angleTo(vector) * 180 / Math.PI;
     }
-}
+};
 
+const pool = [];
+
+/**
+ *  Static
+ */
 Vector.random = function (a, b) {
     a = a || 1;
     b = b || a;
@@ -167,7 +172,15 @@ Vector.random = function (a, b) {
         a * Math.random(),
         b * Math.random()
     );
-}
+};
+
+Vector.catch = function () {
+    return pool.length > 0 ? pool.pop() : new Vector();
+};
+
+Vector.free = function (vector) {
+    pool.push(vector.set(0, 0));
+};
 
 Vector.prototype = addImmutable(prototypes, [
     'set',
