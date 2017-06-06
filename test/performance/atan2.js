@@ -39,6 +39,7 @@ function diamondAtan2(y, x) {
 
 // error < 0.005
 // the accuracy is about 0.3 degrees
+// https://jsperf.com/faster-atan2/3
 function fastAtan2(y, x) {
 	var pi = Math.PI;
 	if (x == 0) {
