@@ -1,4 +1,5 @@
-// |error| < 0.07
+// error avg: 6.2982%
+// error max: 57.0723%
 // the accuracy is about 4 degrees
 function diamondAtan2(y, x) {
     var ax = Math.abs(x),
@@ -12,8 +13,8 @@ function diamondAtan2(y, x) {
     return p * 1.5707963267948966;
 }
 
-// |error| ~ 0.002
-// |error| < 0.005
+// error avg: 0.2217%
+// error max: 0.8586%
 // the accuracy is about 0.3 degrees
 // https://jsperf.com/faster-atan2/3
 function fastAtan2(y, x) {
@@ -40,4 +41,4 @@ function fastAtan2(y, x) {
     return atan;
 }
 
-module.exports = fastAtan2;
+module.exports = diamondAtan2;//fastAtan2;
