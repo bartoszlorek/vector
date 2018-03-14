@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ubery/vector.git"
+    "url": "git+https://github.com/bartoszlorek/vector.git"
   },
   "author": "Bartosz Lorek",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ubery/vector/issues"
+    "url": "https://github.com/bartoszlorek/vector/issues"
   },
-  "homepage": "https://github.com/ubery/vector#readme",
+  "homepage": "https://github.com/bartoszlorek/vector#readme",
   "dependencies": {
     "benchmark": "^2.1.4",
     "lodash": "^4.17.4",
